@@ -50,3 +50,23 @@ designSelect.addEventListener('change', (e) => {
         }
     }
 })
+
+/* 
+Register for Activities section 
+ * adds an event listener to the activities fieldset, so that the total cost goes up or down based on the 
+   activities selected
+*/
+const activitiesFieldset = document.querySelector('#activities');
+const activityCheckbox = document.querySelectorAll('[type="checkbox"]');
+const activitiesCost = document.querySelector('#activities-cost');
+let totalCost = 0;
+
+activitiesFieldset.addEventListener('change', (e) => {
+    let dataCost = parseInt(e.target.attributes['data-cost'].value);
+    if (e.target.checked) {
+        totalCost += dataCost; 
+    } else {
+        totalCost -= dataCost; 
+    }
+    activitiesCost.textContent = `Total: $${totalCost}`;
+})
