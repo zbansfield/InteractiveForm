@@ -16,7 +16,9 @@ otherJobRole.style.display = "none";
 
 jobSelect.addEventListener('change', (e) => {
     if (e.target.value === 'other') {
-        otherJobRole.style.display = 'flex';
+        otherJobRole.style.display = '';
+    } else {
+        otherJobRole.style.display = 'none';
     }
 });
 
@@ -69,4 +71,22 @@ activitiesFieldset.addEventListener('change', (e) => {
         totalCost -= dataCost; 
     }
     activitiesCost.textContent = `Total: $${totalCost}`;
+})
+
+/* 
+Payment Info Section 
+ * Makes the default payment method the 'Credit Card' option
+ * Adds an event listener to the payment method select menu so that the credit card 
+   payment section is only displayed when the 'Credit Card' option is selected
+*/
+const paymentMethodSelect = document.querySelector('#payment');
+const creditCardDetails = document.querySelector('#credit-card');
+paymentMethodSelect[1].selected = true;
+
+paymentMethodSelect.addEventListener('change', (e) => {
+    if (e.target.value === "credit-card") {
+        creditCardDetails.style.display = '';
+    } else {
+        creditCardDetails.style.display = 'none';
+    }
 })
