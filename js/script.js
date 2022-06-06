@@ -90,3 +90,78 @@ paymentMethodSelect.addEventListener('change', (e) => {
         creditCardDetails.style.display = 'none';
     }
 })
+
+/* 
+Form Validation
+ * added a submit event listener to the form element to validate the form when it is submitted
+ * created functions for each section that needs to be validated 
+*/
+const formElement = document.querySelector('form');
+
+// Name input validation - cannot be blank or empty
+function nameValidation (name) {
+    return /^([A-Za-z]*\s?){2,}$/i.test(name) && /\S/.test(name)
+}
+
+// Email input validation - has to be formatted: "char@char.com"
+function emailValidation (email) {
+    return /^[^@]+@[^@.]+\.com$/i.test(email);
+}
+
+// Register for Activites validation - at least one event must be checked
+function activitiesValidation (checkboxes) {
+    let isChecked = 0
+    for (let i=0; i<checkboxes.length; i++) {
+        if (checkboxes[i].checked) {
+            isChecked++;
+        }
+    }
+    return isChecked > 0;
+}
+
+// CC Number validation - must be 13-16 digits 
+function cardNumberValidation (cardNumber) {
+    return /^\d{13,16}$/.test(cardNumber)
+}
+
+// Zip Code validation - must be 5 digits
+function zipCodeValidation (zipCode) {
+    return /^\d{5}$/.test(zipCode)
+}
+
+// CVV validation - must be 3 digits
+function cvvValidation (cvv) {
+    return /^\d{3}$/.test(cvv)
+
+}
+
+// Function to call inside of the event listener - checks if validation functions return 'true' or 'false'
+// and calls preventDefault() on the submit event if they return 'false'
+function validation(valid, e) {
+    if (valid === false) {
+        e.preventDefault();
+    } 
+}
+
+formElement.addEventListener('submit', (e) => {
+    
+    const nameValue = nameInput.value
+    const emailValue = document.querySelector('#email').value
+    const cardNumberValue = document.querySelector('#cc-num').value
+    const zipCodeValue = document.querySelector('#zip').value;
+    const cvvValue = document.querySelector('#cvv').value;    
+    
+    validation(nameValidation(nameValue), e);
+    validation(emailValidation(emailValue), e);
+    validation(activitiesValidation(activityCheckbox), e);
+    if (paymentMethodSelect[1].selected === true) {
+        validation(cardNumberValidation(cardNumberValue), e);
+        validation(zipCodeValidation(zipCodeValue), e);
+        validation(cvvValidation(cvvValue), e);
+    }
+
+})
+
+/*
+Accessibility
+*/
