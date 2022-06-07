@@ -1,3 +1,8 @@
+/*
+Treehouse Techdegree:
+FSJS Project 3 - Interactive Form
+*/
+
 /* 
 Making the name text field have the focus state by default when the page first loads
 */
@@ -15,6 +20,7 @@ const otherJobRole = document.querySelector('#other-job-role');
 otherJobRole.style.display = "none";
 
 jobSelect.addEventListener('change', (e) => {
+    
     if (e.target.value === 'other') {
         otherJobRole.style.display = '';
     } else {
@@ -65,6 +71,7 @@ let totalCost = 0;
 
 activitiesFieldset.addEventListener('change', (e) => {
     let dataCost = parseInt(e.target.attributes['data-cost'].value);
+
     if (e.target.checked) {
         totalCost += dataCost; 
     } else {
@@ -93,8 +100,9 @@ paymentMethodSelect.addEventListener('change', (e) => {
 
 /* 
 Form Validation
- * added a submit event listener to the form element to validate the form when it is submitted
- * created functions for each section that needs to be validated 
+ * adds a submit event listener to the form element to validate the form when it is submitted
+ * validation functions for each section that needs to be validated - these are called in the 'submit' event listener
+ * adds hints when a form section is invalid 
 */
 const formElement = document.querySelector('form');
 
@@ -111,6 +119,7 @@ function emailValidation (email) {
 // Register for Activites validation - at least one event must be checked
 function activitiesValidation (checkboxes) {
     let isChecked = 0
+
     for (let i=0; i<checkboxes.length; i++) {
         if (checkboxes[i].checked) {
             isChecked++;
@@ -145,7 +154,6 @@ function validation(valid, e, section) {
         section.classList.remove('valid');
         section.classList.add('not-valid');
         section.lastElementChild.style.display = 'flex';
-        console.log(section.lastElementChild);
     } else {
         section.classList.add('valid');
         section.classList.remove('not-valid');
@@ -158,6 +166,7 @@ const ccNumberInput = document.querySelector('#cc-num');
 const zipCodeInput = document.querySelector('#zip');
 const cvvInput = document.querySelector('#cvv');
 
+// calls the validation functions when the form is submitted
 formElement.addEventListener('submit', (e) => {
     
     const nameValue = nameInput.value
@@ -184,6 +193,7 @@ Accessibility
 // Making the checkbox input elements listen for 'focus' and 'blur' events
 // so that pressing the tab key moves the focus state from one input to another
 for (let i=0; i<activityCheckbox.length; i++) {
+    
     activityCheckbox[i].addEventListener('focus', (e) => {
         e.target.parentNode.classList.add('focus')
     })
@@ -191,4 +201,3 @@ for (let i=0; i<activityCheckbox.length; i++) {
         e.target.parentNode.classList.remove('focus')
     })
 }
-
