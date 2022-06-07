@@ -137,11 +137,26 @@ function cvvValidation (cvv) {
 
 // Function to call inside of the event listener - checks if validation functions return 'true' or 'false'
 // and calls preventDefault() on the submit event if they return 'false'
-function validation(valid, e) {
+// displays hints if 'false' 
+// changes the form field/section class to valid or not-valid (changes the style to include visual elements that indicate the error)
+function validation(valid, e, section) {
     if (valid === false) {
         e.preventDefault();
-    } 
+        section.classList.remove('valid');
+        section.classList.add('not-valid');
+        section.lastElementChild.style.display = 'flex';
+        console.log(section.lastElementChild);
+    } else {
+        section.classList.add('valid');
+        section.classList.remove('not-valid');
+        section.lastElementChild.style.display = 'none';
+    }
 }
+
+const emailInput = document.querySelector('#email');
+const ccNumberInput = document.querySelector('#cc-num');
+const zipCodeInput = document.querySelector('#zip');
+const cvvInput = document.querySelector('#cvv');
 
 formElement.addEventListener('submit', (e) => {
     
@@ -151,13 +166,13 @@ formElement.addEventListener('submit', (e) => {
     const zipCodeValue = document.querySelector('#zip').value;
     const cvvValue = document.querySelector('#cvv').value;    
     
-    validation(nameValidation(nameValue), e);
-    validation(emailValidation(emailValue), e);
-    validation(activitiesValidation(activityCheckbox), e);
+    validation(nameValidation(nameValue), e, nameInput.parentElement);
+    validation(emailValidation(emailValue), e, emailInput.parentElement);
+    validation(activitiesValidation(activityCheckbox), e, activitiesFieldset);
     if (paymentMethodSelect[1].selected === true) {
-        validation(cardNumberValidation(cardNumberValue), e);
-        validation(zipCodeValidation(zipCodeValue), e);
-        validation(cvvValidation(cvvValue), e);
+        validation(cardNumberValidation(cardNumberValue), e, ccNumberInput.parentElement);
+        validation(zipCodeValidation(zipCodeValue), e, zipCodeInput.parentElement);
+        validation(cvvValidation(cvvValue), e, cvvInput.parentElement);
     }
 
 })
@@ -165,3 +180,15 @@ formElement.addEventListener('submit', (e) => {
 /*
 Accessibility
 */
+
+// Making the checkbox input elements listen for 'focus' and 'blur' events
+// so that pressing the tab key moves the focus state from one input to another
+for (let i=0; i<activityCheckbox.length; i++) {
+    activityCheckbox[i].addEventListener('focus', (e) => {
+        e.target.parentNode.classList.add('focus')
+    })
+    activityCheckbox[i].addEventListener('blur', (e) => {
+        e.target.parentNode.classList.remove('focus')
+    })
+}
+
