@@ -88,13 +88,26 @@ Payment Info Section
 */
 const paymentMethodSelect = document.querySelector('#payment');
 const creditCardDetails = document.querySelector('#credit-card');
+const paypalDetails = document.querySelector('#paypal');
+const bitcoinDetails = document.querySelector('#bitcoin');
+paypalDetails.style.display = 'none';
+bitcoinDetails.style.display = 'none';
 paymentMethodSelect[1].selected = true;
 
 paymentMethodSelect.addEventListener('change', (e) => {
     if (e.target.value === "credit-card") {
         creditCardDetails.style.display = '';
-    } else {
+        paypalDetails.style.display = 'none';
+        bitcoinDetails.style.display = 'none';
+    } else if (e.target.value === "paypal") {
         creditCardDetails.style.display = 'none';
+        paypalDetails.style.display = '';
+        bitcoinDetails.style.display = 'none';
+    }
+    else if (e.target.value === "bitcoin") {
+        creditCardDetails.style.display = 'none';
+        paypalDetails.style.display = 'none';
+        bitcoinDetails.style.display = '';
     }
 })
 
