@@ -83,8 +83,8 @@ activitiesFieldset.addEventListener('change', (e) => {
 /* 
 Payment Info Section 
  * Makes the default payment method the 'Credit Card' option
- * Adds an event listener to the payment method select menu so that the credit card 
-   payment section is only displayed when the 'Credit Card' option is selected
+ * Adds an event listener to the payment method select menu so that the 
+   payment section is only displayed when the option is selected
 */
 const paymentMethodSelect = document.querySelector('#payment');
 const creditCardDetails = document.querySelector('#credit-card');
